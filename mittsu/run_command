@@ -1,0 +1,5 @@
+コンパイル
+gcc file.c -o main
+
+実行
+./main

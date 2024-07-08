@@ -29,3 +29,9 @@ bool isPalindrome(int x) {
     }
     return true;
 }
+
+
+i=0から文字数分ループまわしているけど後半は重複だから余分なんじゃないか
+例えば1221って数字が合った時に
+x_array[0] とx_reverse[0](=x_array[3)]の比較と
+x_array[3] とx_reverse[3](=x_array[0)]の比較を別で実施している気がするけどやっていることが重複している
