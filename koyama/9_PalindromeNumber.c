@@ -1,3 +1,9 @@
+/*
+17MS
+5.6
+*/
+
+
 bool isPalindrome(int x) {
 
     char str[100];
