@@ -1,3 +1,9 @@
+/* 
+3ms
+10.74 MB
+ */
+
+
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
     // ダミーヘッドを使用して、新しいリストを作成
     struct ListNode dummy;
