@@ -1,8 +1,12 @@
+/*
+0MS
+8MB
+*/
 int searchInsert(int* nums, int numsSize, int target) {
     int left = 0;
     int right = numsSize - 1;
 
-    //二分探索左と右が一致するまで探索
+    //二分探索 左と右が一致するまで探索
     while(left <= right){
         //midは小数点切り捨て
         int mid = (left + right)/2;
