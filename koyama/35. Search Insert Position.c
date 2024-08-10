@@ -28,7 +28,7 @@ int searchInsert(int* nums, int numsSize, int target) {
     //numsの最後の指す（nums[最後]）
     int *end = nums + numsSize;
 
-
+    
     while(nums < end) {
         //順にチェックしていく。
         if(*nums < target) nums += 1; 
