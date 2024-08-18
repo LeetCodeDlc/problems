@@ -84,3 +84,66 @@ char* addBinary(char* a, char* b) {
     }
     return result;
 }
+
+// 作り直し
+char* addBinary(char* a, char* b) {
+    //初期値設定
+    int lengthA = strlen(a);
+    int lengthB = strlen(b);
+    // 最大値と最小値を取得
+    int minLength = (lengthA > lengthB) ? lengthB : lengthA;
+    int maxLength = (lengthA > lengthB) ? lengthA : lengthB;
+    char* longerChar = (lengthA > lengthB) ? a : b;
+
+    // int型に変換
+    int* intA = (int*)malloc((maxLength + 2) * sizeof(int));
+    intA = atoi(a);
+    printf("intA: %d\n", intA);
+    // resultの定義
+    char* result = (char*)malloc((maxLength + 2) * sizeof(char));
+    memset(result, '0', maxLength + 1); // 配列を '0' で初期化
+    result[maxLength + 1] = '\0';       // 終端文字を追加
+
+    // 末尾から比較していく
+    // ポイントセット
+    char* endA = a + lengthA - 1;
+    char* endB = b + lengthB - 1;
+    char* resultEnd = result + maxLength;
+
+    //桁上がり処理用の変数定義
+    bool carryFlg = false;
+
+    while(endA != NULL && endB != NULL){
+        int sum = endA* + endB*
+        if (carryFlg == true){
+            sum += 1;
+            carryFlg = false;
+        }
+        if (sum >= 2){
+            carryFlg = true;
+            sum -= 2;
+        }
+        *resultEnd = sum;
+        resultEnd--;
+        endA--;
+        endB--;
+    }
+    //【TODO】endAとendBに対応できるようにする必要がある。
+    while(longerChar != NULL){
+        int temp = *longerChar;
+        if (carryFlg == true){
+            temp += 1;
+            carryFlg = false;
+        }
+        if (temp >= 2){
+            carryFlg = true;
+            temp -= 2;
+        }
+        *resultEnd = temp;
+        resultEnd--;
+        longerChar--;
+    }
+
+    // if(sum>=2){sum=0}
+    
+}

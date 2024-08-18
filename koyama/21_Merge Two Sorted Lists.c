@@ -4,7 +4,7 @@
  */
 
 
-struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
+struct ListNode* method(struct ListNode* list1, struct ListNode* list2) {
     // ダミーヘッドを使用して、新しいリストを作成
     struct ListNode dummy;
     // 最後のノードを指す（マージする位置を示すため）
