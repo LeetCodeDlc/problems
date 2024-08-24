@@ -1,42 +1,23 @@
-
-/**
- * ノードを反転させるメソッド
+/** 
+ *15ms
+ *12.78MB
  */
 
-struct ListNode* reverseAndCarry(struct ListNode* head) {
-    // 新しいリストのためのダミーヘッド
-    struct ListNode dummy;
-    dummy.next = NULL;
-    //bool carryFlg = false;
 
-    //引数で渡されたノードの先頭を格納
+/** 
+ *リストの要素数を返す関数
+ */
+int getListLength(struct ListNode* head) {
+    int length = 0;
     struct ListNode* current = head;
+    
+    // リストを走査して長さをカウント
     while (current != NULL) {
-        // 新しいノードを作成
-        struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
-
-        //current->valが10以上の場合数値を変える。
-        //繰上げフラグを用意。
-        printf("current: %d\n", current->val);
-        if (carryFlg == true) {
-            sum += 1;
-            carryFlg = false;
-        }
-        if (sum >= 10) {
-            carryFlg = true;
-            sum -= 10;
-        }
-            newNode->val = current->val;
-            // 一時ノードの向き先をダミーに変更
-            newNode->next = dummy.next;
-            // ダミーの向き先を一時ノードに向ける。
-            dummy.next = newNode;
-            // 元のリストの次のノードに進む
-            current = current->next;
+        length++;
+        current = current->next;
     }
-
-    // ダミーヘッドの次のノードが反転されたリストの先頭
-    return dummy.next;
+    
+    return length;
 }
 
 /**
@@ -46,38 +27,52 @@ struct ListNode* reverseAndCarry(struct ListNode* head) {
  *     struct ListNode *next;
  * };
  */
-
 struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
-    // dummy用のリスト作成
-    struct ListNode dummy;
-    // 最後のノードを指す
-    struct ListNode* tail = &dummy;
-    // NULLで初期化
-    dummy.next = NULL;
+    int l1Stack[getListLength(l1)];
+    int l2Stack[getListLength(l2)];
+    int l1Top = -1;
+    int l2Top = -1;
 
-    // l1とl2の末尾からを足し合わせていく
-    while (l1 != NULL && l2 != NULL) {
-        int sum = 0;
-        sum = l1->val + l2->val;
-
+    while (l1 != NULL) {
+        l1Stack[++l1Top] = l1->val; // スタックにプッシュ
         l1 = l1->next;
+    }
+
+    while (l2 != NULL) {
+        l2Stack[++l2Top] = l2->val; // スタックにプッシュ
         l2 = l2->next;
-
-        struct ListNode* tempNode = (struct ListNode*)malloc(sizeof(struct ListNode));
-        tempNode->val = sum;
-        tempNode->next = NULL;
-        tail->next = tempNode;
-        tail = tail->next;
     }
 
-    // 残りをリストに追加
-    if (l1 != NULL) {
-        tail->next = l1;
-    } else {
-        tail->next = l2;
+    // result用のリスト作成
+    struct ListNode result;
+    result.next = NULL;
+    struct ListNode* current = &result;
+
+    // 桁上がり処理用の判別フラグ
+    bool carry = false;
+    int i = 0;
+    int j = 0;
+
+    while (l1Top >= i || l2Top >= j || carry) {
+        // 配列に値がない場合は0を代入
+        int l1Value = (l1Top >= i) ? l1Stack[i] : 0;
+        int l2Value = (l2Top >= j) ? l2Stack[j] : 0;
+        struct ListNode* newNode = malloc(sizeof(struct ListNode));
+        int carrySum = l1Value + l2Value + carry;
+
+        // 繰り上がり判定
+        carry = carrySum >= 10;
+        carrySum %= 10;
+
+        newNode->val = carrySum;
+        newNode->next = NULL;
+
+        current->next = newNode;
+        current = newNode;
+
+        i++;
+        j++;
     }
 
-    //反転と繰上げ処理を行う
-    struct ListNode* result = reverseAndCarry(dummy.next);
-    return result;
+    return result.next;
 }
